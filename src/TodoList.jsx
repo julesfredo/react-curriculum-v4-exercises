@@ -1,4 +1,7 @@
-function ToDoList() {
+import {props} from 'react';
+
+function ToDoList(props) {
+
 	const todoList = [
 		{id: 1, title: "review resources"},
 		{id: 2, title: "take notes"},
@@ -8,7 +11,7 @@ function ToDoList() {
 	return(
 		<>
 			<ul>
-				{todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
+				{props.todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
 			</ul>
 		</>
 	);
