@@ -1,8 +1,9 @@
-import {props} from 'react';
+import React from 'react';
+import TodoListItem from './TodoListItem.jsx';
 
-function ToDoList(props) {
+function ToDoList({todoList}) {
 
-	const todoList = [
+	todoList = [
 		{id: 1, title: "review resources"},
 		{id: 2, title: "take notes"},
 		{id: 3, title: "code out app"},
@@ -10,11 +11,14 @@ function ToDoList(props) {
 
 	return(
 		<>
-			<ul>
-				{props.todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
-			</ul>
+		<ul>
+			{todoList.map(todo =>
+				<li>
+					<TodoListItem key={todo.id} todo = {todo}/>
+				</li>)}
+		</ul>
 		</>
-	);
+		);
 }
 
 export default ToDoList;
