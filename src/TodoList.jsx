@@ -3,12 +3,11 @@ import TodoListItem from './TodoListItem.jsx';
 
 function ToDoList({todoList}) {
 	return(
-		todoList.length() === 0 ? (<p>Add todo above to get started</p>) :
+		todoList.length === 0 ? (<p>Add todo above to get started</p>) :
 		(<ul>
 			{todoList.map(todo =>
-				<li key={todo.id} >
-					<TodoListItem todo = {todo}/>
-				</li>)}
+				<TodoListItem key={todo.id} todo = {todo}/>
+				)}
 		</ul>)
 		)
 }

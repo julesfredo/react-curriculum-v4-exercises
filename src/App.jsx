@@ -8,14 +8,20 @@ function App() {
 
   function addTodo(todoTitle) {
     
-    let newTodo = {id:Date.now(), title:todoTitle};
+    let newTodo = {id:Date.now(), title:todoTitle, isCompleted: false};
 
     setTodoList((previous) =>
       [newTodo, ...previous]
       );
     
   }
-
+  function completeTodo(id) {
+    todoList.map(todo) => {
+      if(id == todo.id) {
+        return {...todo, isCompleted: true}
+      }
+    }
+  }
   return (  
     <div>
       <h1>My Todos</h1>
