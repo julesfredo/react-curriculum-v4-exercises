@@ -4,7 +4,7 @@ import TodoForm from './TodoForm.jsx';
 import { useState } from 'react';
 
 function App() {
-  const [todoList, setTodoList] = useState([])
+  const [filteredTodoList, setTodoList] = useState([])
 
   function addTodo(todoTitle) {
     

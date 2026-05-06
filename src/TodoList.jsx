@@ -9,7 +9,7 @@ function ToDoList({todoList, onCompleteTodo}) {
 				<TodoListItem onCompleteTodo key={todo.id} todo = {todo}/>
 				)}
 		</ul>)
-		)
+		);
 }
 
 export default ToDoList;
