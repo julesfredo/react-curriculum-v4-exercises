@@ -1,5 +1,6 @@
 import './App.css'
 import ToDoList from './TodoList.jsx';
+import TodoForm from './TodoForm.jsx';
 import { useState } from 'react';
 
 const todos = [
@@ -9,12 +10,24 @@ const todos = [
 ]
 
 function App() {
-const [todoList, setTodoList] = useState(todos)
+const [todoList, setTodoList] = useState([])
+
+function addTodo(todoTitle) {
+  // let id = Date.now();
+  // let title = todoTitle;
+  let newTodo = {id:Date.now(), title:todoTitle};
+
+  setTodoList((previous) =>
+    [newTodo, ...previous]
+    )
+  
+}
 
   return (  
     <div>
       <h1>My Todos</h1>
-      <ToDoList todoList = {todoList} />
+      <TodoForm onAddTodo = {addTodo}/>
+      {/*<ToDoList todoList = {todoList} />*/}
       <ul>
         {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
       </ul>
