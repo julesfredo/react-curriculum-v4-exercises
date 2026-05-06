@@ -1,6 +1,9 @@
 import React from 'react';
 
-export default function TodoListItem({todo}) {
+export default function TodoListItem({todo,onCompleteTodo}) {
 
-	return <li>{ todo.title }</li>;
+	return (
+		
+		<li>{ todo.title }</li>
+		);
 };

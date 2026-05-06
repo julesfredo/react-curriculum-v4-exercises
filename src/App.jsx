@@ -16,17 +16,19 @@ function App() {
     
   }
   function completeTodo(id) {
-    todoList.map(todo) => {
+    todoList.map((todo) => {
       if(id == todo.id) {
-        return {...todo, isCompleted: true}
+        return {...todo, isCompleted: true};
       }
-    }
+    })
+      return todo;
+      setTodoList();
   }
   return (  
     <div>
       <h1>My Todos</h1>
       <TodoForm onAddTodo = {addTodo}/>
-      <ToDoList todoList = {todoList} />
+      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} />
     </div>
     )
 }
