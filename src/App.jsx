@@ -4,28 +4,25 @@ import TodoForm from './TodoForm.jsx';
 import { useState } from 'react';
 
 function App() {
-const [todoList, setTodoList] = useState([])
+  const [todoList, setTodoList] = useState([])
 
-function addTodo(todoTitle) {
-  
-  let newTodo = {id:Date.now(), title:todoTitle};
+  function addTodo(todoTitle) {
+    
+    let newTodo = {id:Date.now(), title:todoTitle};
 
-  setTodoList((previous) =>
-    [newTodo, ...previous]
-    );
-  
-}
+    setTodoList((previous) =>
+      [newTodo, ...previous]
+      );
+    
+  }
 
   return (  
     <div>
       <h1>My Todos</h1>
       <TodoForm onAddTodo = {addTodo}/>
       <ToDoList todoList = {todoList} />
-      <ul>
-        {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
-      </ul>
     </div>
-  )
+    )
 }
 
 export default App
