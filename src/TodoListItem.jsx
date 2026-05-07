@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function TodoListItem({todo,onCompleteTodo}) {
+export default function TodoListItem({todo, onCompleteTodo}) {
 
 	return (
 		<li>
 			<input
 				type="checkbox"
 				checked={todo.isCompleted}
-				onChange={()=> onCompleteTodo(todo.id)}
+				onChange={() => onCompleteTodo(todo.id)}
 			/>
 			{ todo.title }
 		</li>

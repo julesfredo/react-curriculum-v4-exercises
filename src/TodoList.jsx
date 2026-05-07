@@ -1,12 +1,17 @@
 import React from 'react';
 import TodoListItem from './TodoListItem.jsx';
 
-function ToDoList({todoList, onCompleteTodo}) {
+// let filteredTodoList=[];
+
+function ToDoList({todoList=[], onCompleteTodo}) {
+	let filteredTodoList = todoList.filter(todo => !todo.isCompleted);
+	console.log(filteredTodoList);
+	
 	return(
-		todoList.length === 0 ? (<p>Add todo above to get started</p>) :
+		filteredTodoList.length === 0 ? (<p>Add todo above to get started</p>) :
 		(<ul>
-			{todoList.map(todo =>
-				<TodoListItem onCompleteTodo key={todo.id} todo = {todo}/>
+			{filteredTodoList.map(todo =>
+				<TodoListItem onCompleteTodo={ onCompleteTodo } key={todo.id} todo = {todo}/>
 				)}
 		</ul>)
 		);
