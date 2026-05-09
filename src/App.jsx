@@ -19,7 +19,7 @@ function App() {
     setTodoList((todoList) => {
       console.log(todoList);
       return todoList.map((todo) => {
-        id == todo.id ? console.log(id) : console.log("no obj id")
+        id == todo.id ? {...todo, isCompleted:true} : todo
       }
         );
     }
