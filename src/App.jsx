@@ -4,35 +4,34 @@ import TodoForm from './TodoForm.jsx';
 import { useState } from 'react';
 
 function App() {
-  const [todoList, setTodoList] = useState([])
+  let [todoList, setTodoList] = useState([])
 
   function addTodo(todoTitle) {
 
     let newTodo = {id:Date.now(), title:todoTitle, isCompleted: false};
 
-    console.log(newTodo);
-    setTodoList((previous) =>
+    return setTodoList((previous) =>
       [newTodo, ...previous]
-      );
-      // console.log(previous);
-    
+      );    
   }
   function completeTodo(id) {
-    setTodoList((previous) => {
-      return previous.map((todo) => {
-        id === todo.id ? { ...todo, isCompleted : true}: todo;
+    console.log(todoList);
+    setTodoList((todoList) => {
+      console.log(todoList);
+      return todoList.map((todo) => {
+        id == todo.id ? console.log(id) : console.log("no obj id")
       }
-      );
+        );
     }
     )
   }
-return (  
-  <div>
-    <h1>My Todos</h1>
-    <TodoForm onAddTodo = {addTodo}/>
-    <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} />
-  </div>
-  )
+  return (  
+    <div>
+      <h1>My Todos</h1>
+      <TodoForm onAddTodo = {addTodo}/>
+      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} />
+    </div>
+    )
 }
 
 export default App

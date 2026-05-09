@@ -2,11 +2,13 @@ import React from 'react';
 import TodoListItem from './TodoListItem.jsx';
 
 // let filteredTodoList=[];
-
-function ToDoList({todoList=[], onCompleteTodo}) {
-	let filteredTodoList = todoList.filter(todo => !todo.isCompleted);
+let filteredTodoList=[];
+function ToDoList({todoList, onCompleteTodo = {completeTodo}}) {
+	console.log(todoList);
+	for(let z=0; z< todoList.length; z++) {
+	filteredTodoList = todoList.filter(todo => todo);
 	console.log(filteredTodoList);
-	
+	}
 	return(
 		filteredTodoList.length === 0 ? (<p>Add todo above to get started</p>) :
 		(<ul>
