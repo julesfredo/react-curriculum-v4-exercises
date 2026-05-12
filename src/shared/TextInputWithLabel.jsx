@@ -1,3 +1,5 @@
+import React from 'react';
+
 function TextInputWithLabel({
 	elementId,
 	labelText,
@@ -18,4 +20,4 @@ function TextInputWithLabel({
 		);
 }
 
-export default TextInputWithLabel 
+export default TextInputWithLabel;
