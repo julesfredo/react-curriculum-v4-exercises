@@ -1,23 +1,21 @@
 import React from 'react';
 import TodoListItem from './TodoListItem.jsx';
 
-function ToDoList({todoList}) {
-
-	// todoList = [
-	// 	// {id: 1, title: "review resources"},
-	// 	// {id: 2, title: "take notes"},
-	// 	// {id: 3, title: "code out app"},
-	// ]
-
+// let filteredTodoList=[];
+let filteredTodoList=[];
+function ToDoList({todoList, onCompleteTodo = {completeTodo}}) {
+	console.log(todoList);
+	for(let z=0; z< todoList.length; z++) {
+	filteredTodoList = todoList.filter(todo => todo);
+	console.log(filteredTodoList);
+	}
 	return(
-		<>
-		<ul>
-			{todoList.map(todo =>
-				<li key={todo.id} >
-					<TodoListItem todo = {todo}/>
-				</li>)}
-		</ul>
-		</>
+		filteredTodoList.length === 0 ? (<p>Add todo above to get started</p>) :
+		(<ul>
+			{filteredTodoList.map(todo =>
+				<TodoListItem onCompleteTodo={ onCompleteTodo } key={todo.id} todo = {todo}/>
+				)}
+		</ul>)
 		);
 }
 
