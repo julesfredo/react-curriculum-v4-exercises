@@ -21,15 +21,29 @@ function App() {
       return todoList.map((todo) => {
         id == todo.id ? {...todo, isCompleted:true} : todo
       }
-        );
+      );
     }
     )
   }
+  function updateTodo(editedTodo) {
+    let updatedTodos;
+    todoList.map(todo => {
+      if(todo.id ===  editedTodo.id) {
+        updatedTodos = { ...editedTodo };
+      }
+      else {
+        updatedTodos = editedTodo
+      }
+      setTodoList(updatedTodos);
+      return updatedTodos;
+    }) 
+  }
+
   return (  
     <div>
       <h1>My Todos</h1>
       <TodoForm onAddTodo = {addTodo}/>
-      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} />
+      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo }/>
     </div>
     )
 }
