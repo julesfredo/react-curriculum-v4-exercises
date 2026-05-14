@@ -19,7 +19,7 @@ function App() {
     setTodoList((todoList) => {
       console.log(todoList);
       return todoList.map((todo) => {
-        id == todo.id ? {...todo, isCompleted:true} : todo
+        return id === todo.id ? {...todo, isCompleted:true} : todo
       }
       );
     }
@@ -27,15 +27,15 @@ function App() {
   }
   function updateTodo(editedTodo) {
     let updatedTodos;
-    todoList.map(todo => {
+    updatedTodos = todoList.map(todo => {
       if(todo.id ===  editedTodo.id) {
-        updatedTodos = { ...editedTodo };
+        setTodoList(updatedTodos);
+        return updatedTodos = { ...editedTodo };
       }
       else {
-        updatedTodos = editedTodo
+        setTodoList(updatedTodos);
+        return updatedTodos
       }
-      setTodoList(updatedTodos);
-      return updatedTodos;
     }) 
   }
 
