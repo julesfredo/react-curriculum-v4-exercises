@@ -10,53 +10,50 @@ export default function TodoListItem({todo, onCompleteTodo, onUpdateTodo={ onUpd
 		setIsEditing(false);
 	}
 	function handleEdit(event) {
-	setWorkingTitle(event.target.value);
-}
+		setWorkingTitle(event.target.value);
+	}
 	function handleUpdate(event) {
-		if(isEditing) return;
 		event.preventDefault();
+		if(!isEditing) return;
 		onUpdateTodo({...todo, title : workingTitle});
 		setIsEditing(false);
 	}
 	return (
 		<li>
-			<form
-				onSubmit = { handleUpdate }>
-				{ isEditing ? ( 
-					<TextInputWithLabel
-						onChange={handleEdit}
-						value= { workingTitle }
-						/>): (
-						<>
-						<label> 
-							<input
-								type="checkbox"
-								checked={todo.isCompleted}
-								onChange={() => onCompleteTodo(todo.id)}
-							/>
-						</label>
-						<span
+			<form onSubmit = { handleUpdate }>
+			 	{ isEditing ? ( 
+					<TextInputWithLabel onChange={handleEdit} value= { workingTitle } />
+				) : (
 
-							onClick={() => setIsEditing(true)}> { todo.title }
-						</span>
-						<br/>
-						<button
+							<>						
+							<label> 
+								<input
+									type="checkbox"
+									checked={todo.isCompleted}
+									onChange={() => onCompleteTodo(todo.id)}
+								/>
+							</label>
+							<span
 
-							type="button"
-							onClick={handleCancel}
-						>
-							Cancel
-						</button>
-						
-						<button
-							onClick={() => setIsEditing(true)}
-							type="button"
-							onClick={ handleUpdate }
-							disabled={!isValidTodoTitle(todo.title)}>
-							Update
-						</button>
+								onClick={() => setIsEditing(true)}> { todo.title }
+							</span>
+							<br/>
+							<button
 
-						</>
+								type="button"
+								onClick={handleCancel}
+							>
+								Cancel
+							</button>
+
+							<button
+								type="button"
+								onClick={ handleUpdate }
+								disabled={!isValidTodoTitle(todo.title)}>
+								Update
+							</button>
+
+							</>
 						)}
 					</form>
 				</li>

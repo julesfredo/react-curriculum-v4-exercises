@@ -27,15 +27,15 @@ function App() {
   }
   function updateTodo(editedTodo) {
     let updatedTodos;
-    updatedTodos = todoList.map(todo => {
+    
+     todoList.map(todo => {
       if(todo.id ===  editedTodo.id) {
-        setTodoList(updatedTodos);
-        return updatedTodos = { ...editedTodo };
+        return { ...editedTodo };
       }
       else {
-        setTodoList(updatedTodos);
-        return updatedTodos
+        return editedTodo
       }
+      setTodoList(updatedTodos);
     }) 
   }
 
