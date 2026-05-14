@@ -43,7 +43,7 @@ function App() {
     <div>
       <h1>My Todos</h1>
       <TodoForm onAddTodo = {addTodo}/>
-      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo }/>
+      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo } />
     </div>
     )
 }

@@ -4,15 +4,13 @@ import { useState } from 'react';
 
 let filteredTodoList=[];
 function ToDoList({todoList, onCompleteTodo = {completeTodo}, onUpdateTodo={ onUpdateTodo }}) {
-	console.log(todoList);
-	for(let z=0; z< todoList.length; z++) {
-	filteredTodoList = todoList.filter(todo => todo);
-	console.log(filteredTodoList);
-	}
+	todoList.map((todo)=>{
+		todo;
+	})
 	return(
-		filteredTodoList.length === 0 ? (<p>Add todo above to get started</p>) :
+		todoList.length === 0 ? (<p>Add todo above to get started</p>) :
 		(<ul>
-			{filteredTodoList.map(todo =>
+			{todoList.map(todo =>
 				<TodoListItem onCompleteTodo={ onCompleteTodo } key={todo.id} todo = {todo} onUpdateTodo={ onUpdateTodo }/>
 				)}
 		</ul>)
