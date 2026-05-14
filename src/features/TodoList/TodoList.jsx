@@ -3,7 +3,7 @@ import TodoListItem from './TodoListItem.jsx';
 import { useState } from 'react';
 
 let filteredTodoList=[];
-function ToDoList({todoList, onCompleteTodo = {completeTodo}, onUpdateTodo={ onUpdateTodo }}) {
+function ToDoList({todoList, onCompleteTodo = {onCompleteTodo}, onUpdateTodo={ unUpdateTodo }}) {
 	todoList.map((todo)=>{
 		todo;
 	})

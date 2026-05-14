@@ -19,24 +19,25 @@ function App() {
     setTodoList((todoList) => {
       console.log(todoList);
       return todoList.map((todo) => {
-        return id === todo.id ? {...todo, isCompleted:true} : todo
+        return id === todo.id ? { ...todo, isCompleted:true } : todo
       }
       );
     }
     )
   }
   function updateTodo(editedTodo) {
-    let updatedTodos;
-    
-     todoList.map(todo => {
+    let updatedTodo;
+     updatedTodo = todoList.map(todo => {
       if(todo.id ===  editedTodo.id) {
-        return { ...editedTodo };
+        console.log("id's match");
+        return {...editedTodo};
       }
       else {
-        return editedTodo
+        return todoList;
       }
       setTodoList(updatedTodos);
-    }) 
+    })
+     return updatedTodo;
   }
 
   return (  
