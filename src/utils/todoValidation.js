@@ -4,4 +4,3 @@ export function isValidTodoTitle(title) {
 	}
 	return false;
 }
-wa

@@ -23,6 +23,7 @@ export default function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
 		console.log(workingTitle);
 		setIsEditing(false);
 	}
+	
 	return (
 		<li>
 			<form onSubmit = { handleUpdate }>
