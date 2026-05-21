@@ -1,18 +1,20 @@
 import './App.css'
-import ToDoList from './features/TodoList/TodoList.jsx';
-import TodoForm from './features/Todos/TodoForm.jsx';
+import ToDoList from '/src/features/Todos/TodoList/TodoList.jsx';
+import TodoForm from '/src/features/TodoForm.jsx';
 import { useState } from 'react';
-import Header from './shared/Header.jsx';
-import TodosPage from './features/Todos/TodosPage.jsx';
+import Header from '/src/shared/Header.jsx';
+import TodosPage from '/src/features/Todos/TodosPage.jsx';
+import Logon  from '/src/features/Logon.jsx';
 
-function App() {
+function App(addTodo, onCompleteTodo, todoList, updateTodo) {
   return (  
     <div>
       <Header />
       <TodosPage />
-      <h1>My Todos</h1>
-      <TodoForm onAddTodo = {addTodo}/>
-      <ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo } />
+      <Logon  />
+      {/*<h1>My Todos</h1>*/}
+      {/*<TodoForm onAddTodo = {addTodo}/>*/}
+      {/*<ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo } />*/}
     </div>
     )
 }
