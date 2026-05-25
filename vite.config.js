@@ -1,33 +1,29 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/ for more info about configuration options
 export default ({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+  const env = loadEnv(mode, process.cwd(), '');
+  const target = 'https://ctd-learns-node-l42tx.ondigitalocean.app';
+  //  if (!target) throw new Error('VITE_TARGET not defined')} else { console.log('Target ')};
 
   return defineConfig({
+  // console.log(target);
     plugins: [react()],
     server: {
       port: 3001,
       proxy: {
         '/api': {
-          target: env.VITE_TARGET,
+          target,
           secure: false,
           changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, ''),
           configure: (proxy) => {
             proxy.on('proxyRes', (proxyRes) => {
               const cookies = proxyRes.headers['set-cookie'];
-
-              if (!cookies) {
-                return;
-              }
-
+              if (!cookies) return;
               const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
-              proxyRes.headers['set-cookie'] = cookieArray.map((cookie) =>
-                cookie
-                  .replace(/; *Secure/gi, '')
-                  .replace(/; *SameSite=None/gi, '')
-                  .replace(/; *Domain=[^;]+/gi, '')
+              proxyRes.headers['set-cookie'] = cookieArray.map(cookie =>
+                cookie.split(';').map(p => p.trim()).filter(p => !/^(Secure|SameSite=None|Domain=)/i.test(p)).join('; ')
               );
             });
           },
