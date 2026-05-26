@@ -3,20 +3,20 @@ import react from '@vitejs/plugin-react';
 
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const target = 'https://ctd-learns-node-l42tx.ondigitalocean.app';
+  const env1 = 'https://ctd-learns-node-l42tx.ondigitalocean.app';
   //  if (!target) throw new Error('VITE_TARGET not defined')} else { console.log('Target ')};
 
   return defineConfig({
   // console.log(target);
     plugins: [react()],
     server: {
-      port: 3001,
+      port: 3000,
       proxy: {
         '/api': {
-          target,
+          target: env1,
           secure: false,
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, ''),
+          // rewrite: path => path,
           configure: (proxy) => {
             proxy.on('proxyRes', (proxyRes) => {
               const cookies = proxyRes.headers['set-cookie'];

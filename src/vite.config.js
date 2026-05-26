@@ -3,7 +3,8 @@ import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/ for more info about configuration options
 export default ({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+  const env = 'https://ctd-learns-node-l42tx.ondigitalocean.app';
+  // loadEnv(mode, '.', '');
 
   return defineConfig({
     plugins: [react()],
@@ -11,7 +12,7 @@ export default ({ mode }) => {
       port: 3001,
       proxy: {
         '/api': {
-          target: env.VITE_TARGET,
+          target: env,
           secure: false,
           changeOrigin: true,
           configure: (proxy) => {
