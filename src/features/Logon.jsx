@@ -1,11 +1,6 @@
 import { useState } from 'react';
 
-// type Props = {
-  // onSetEmail?: (email: string) => void;
-  // onSetToken?: (token: string) => void;
-// };
-
-export default function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
+export default function Logon({ onSetEmail, onSetToken} ) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
