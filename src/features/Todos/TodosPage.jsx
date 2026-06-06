@@ -20,20 +20,20 @@ function TodosPage({ token }) {
 		const fetchTodo = async () => {
 			try{
 				setIsTodoLoading(true);
-				const response = await fetch(`/api/tasks${params}`, {
+				const response = await fetch(`/api/tasks?${params.toString()}`, {
 					method: 'GET',
 					headers: { 
 						'Content-Type': 'application/json',
-						'X-CSRF-TOKEN': { token }
+						'X-CSRF-TOKEN': token.toString()
 					},
 					credentials: 'include',
-					body: JSON.stringify({ title, isCompleted }),
+					//body: JSON.stringify({ title, isCompleted }),
 				});
 
 				const data = await response.json();
-				if(response.status === 200) {
+				if(response.status === response.ok) {
 					data.tasks.map((listItem) => {
-						newList.push(listItem.title);
+						newList.push(listItem);
 					})
 					return setTodoList(newList);
 				} else if(response.status === 401) {
@@ -45,28 +45,29 @@ function TodosPage({ token }) {
 			}catch(err){
 				setError(err);
 			}finally{
-				isTodoLoading(false);
+				setIsTodoLoading(false);
 			}
 
 		}
-	}, [token, sortBy, sortDirection])
+		fetchTodo();
+	}, [token, sortBy, sortDirection]);
 
 	const  addTodo = async (todoTitle) => { 
-		let newTodo = {id:Date.now(), title:todoTitle, isCompleted: false};
+		let newTodo = {id:Date.now(), title: todoTitle, isCompleted: false};
 		try {
 			const response = await fetch('/api/tasks', {
 				method: 'POST',
 				headers: { 
 					'Content-Type': 'application/json',
-					'X-CSRF-TOKEN': { token }
+					'X-CSRF-TOKEN': token
 				},
 				credentials: 'include',
-				body: JSON.stringify({ title, isCompleted }),
+				body: JSON.stringify({ todoTitle, newTodo.isCompleted }),
 			});
 
 			const data = await response.json();
 
-			if (response.status === 200) {
+			if (response.status === response.ok) {
 				data.tasks.map((listItem) => {
 					newList.push(listItem.title);
 				})
@@ -81,7 +82,7 @@ function TodosPage({ token }) {
 	const completeTodo= async(id) => {
 		let originalList = todoList;
 		setTodoList((todoList) => {
-			console.log(todoList);
+			(todoList);
 			return todoList.map((todo) => {
 				return id === todo.id ? { ...todo, isCompleted:true } : todo
 			}
@@ -89,20 +90,21 @@ function TodosPage({ token }) {
 		}
 		)
 	}
+//Segund
 	function updateTodo(editedTodo) {
 		let updatedTodo;
 		updatedTodo = todoList.map(todo => {
-			if(todo.id ===  editedTodo.id) {
-				console.log("id's match");
+			if(todo.id === editedTodo.id) { 
 				return {...editedTodo};
 			}
 			else {
-				return todoList;
+				return editedTodo;
 			}
-			setTodoList(updatedTodos);
+			setTodoList(updatedTodo);
 		})
 		return updatedTodo;
 	}
+
 	return(
 		<div>
 			<SortBy />

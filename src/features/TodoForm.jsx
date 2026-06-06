@@ -13,9 +13,9 @@ function TodoForm ({ onAddTodo }) {
 	const handleAddTodo = (event) => {
 		event.preventDefault();
 
-		console.log(workingTodoTitle);
+		(workingTodoTitle);
 		let workingTodoTitleNoSpace = workingTodoTitle.trim();
-		console.log(workingTodoTitleNoSpace);
+		(workingTodoTitleNoSpace);
 		if (workingTodoTitleNoSpace) {
 			onAddTodo(workingTodoTitleNoSpace);
 			setWorkingTodoTitle("")

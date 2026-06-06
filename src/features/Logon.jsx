@@ -20,7 +20,7 @@ export default function Logon({ onSetEmail, onSetToken} ) {
       });
 
       const data = await response.json();
-      console.log(response.status)
+      (response.status)
 
       if (response.status === 200
        // && data?.name && data?.csrfToken
@@ -88,7 +88,7 @@ export default function Logon({ onSetEmail, onSetToken} ) {
 // 			}
 // 			);
 // 			const data = await response.json();
-// 			console.log(response,json());
+// 			(response,json());
 // 			if(response.status === 200 && data.name && data.csrfToken) {
 // 				onSetEmail(data.name);
 // 				onSetPassword(data.csrfToken);

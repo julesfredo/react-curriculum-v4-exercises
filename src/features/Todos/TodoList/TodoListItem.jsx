@@ -14,13 +14,13 @@ export default function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
 	}
 	function handleEdit(event) {
 		setWorkingTitle(event.target.value);
-		console.log(workingTitle);
+		(workingTitle);
 	}
 	function handleUpdate(e) {
 		e.preventDefault();
 		if(!isEditing) return;
 		updatedTitle = onUpdateTodo({...todo, title : workingTitle}).title;
-		console.log(workingTitle);
+		(workingTitle);
 		setIsEditing(false);
 	}
 	
