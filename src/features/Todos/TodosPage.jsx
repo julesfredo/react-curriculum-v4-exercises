@@ -1,16 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import TodoList from '/src/features/Todos/TodoList/TodoList.jsx';
 import TodoForm from '/src/features/TodoForm.jsx';
-import SortBy from '/src/SortBy.jsx';
+import SortBy from '/src/shared/SortBy.jsx';
 
 function TodosPage({ token }) {
-	let [todoList, setTodoList] = useState([])
-	let [error, setError] = useState("")
-	let [isTodoLoading, setIsTodoLoading] = useState(false)
-	let [sortBy, setSortBy] = useState('creationDate');
-	let [sortDirection, setSortDirection] = useState('desc');
-	let newList = [];
+	// let [todoList, setTodoList] = useState([])
+	// let [error, setError] = useState("")
+	// let [isTodoLoading, setIsTodoLoading] = useState(false)
+	// let [sortBy, setSortBy] = useState('creationDate');
+	// let [sortDirection, setSortDirection] = useState('desc');
+	// let newList = [];
 
+	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+	const {
+		todoList,
+		error,
+		filterError,
+		isTodoListLoading,
+		sortBy,
+		sortDirection,
+		filterTerm,
+		dataVersion,
+	} = state;
 	const params = new URLSearchParams({
 		sortBy,
 		sortDirection,
@@ -19,7 +30,7 @@ function TodosPage({ token }) {
 	useEffect(() => {
 		const fetchTodo = async () => {
 			try{
-				setIsTodoLoading(true);
+				//setIsTodoLoading(true);
 				const response = await fetch(`/api/tasks?${params.toString()}`, {
 					method: 'GET',
 					headers: { 
@@ -62,7 +73,7 @@ function TodosPage({ token }) {
 					'X-CSRF-TOKEN': token
 				},
 				credentials: 'include',
-				body: JSON.stringify({ todoTitle, newTodo.isCompleted }),
+				body: JSON.stringify({ todoTitle, isCompleted }),
 			});
 
 			const data = await response.json();

@@ -1,6 +1,6 @@
 import {} from 'react';
 
-function SortBy({ sortBy, sortDirection, onSortByChange, onSortDirectionChange }) {
+export default function SortBy({ sortBy, sortDirection, onSortByChange, onSortDirectionChange }) {
 	return (
 		<>	
 		<label for="sortBy">Sort By:</label>
@@ -18,4 +18,5 @@ function SortBy({ sortBy, sortDirection, onSortByChange, onSortDirectionChange }
 		</>
 		)
 }
-export function SortBy
+
+//function SortBy
