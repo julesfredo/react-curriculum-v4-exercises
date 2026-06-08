@@ -5,24 +5,25 @@ import { useState } from 'react';
 import Header from '/src/shared/Header.jsx';
 import TodosPage from '/src/features/Todos/TodosPage.jsx';
 import Logon  from '/src/features/Logon.jsx';
+import { useAuth } from '/src/contexts/AuthContext.jsx';
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
+  const { token, isAuthenticated, login, logout, email } = useAuth();
+
   return (
     <>  
     <div>
       <div>
-        <Header token={token} onSetToken={setToken} onSetEmail={setEmail} />
+        <Header />
       </div>
 
       <div>
         {
 
           token ? (
-           <TodosPage token={token}/>
+           <TodosPage />
            ): (
-           <Logon  onSetEmail={setEmail} onSetToken={setToken}/>
+           <Logon />
            )
          }
        </div>

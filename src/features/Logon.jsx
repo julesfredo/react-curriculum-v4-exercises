@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useAuth } from '/src/contexts/AuthContext.jsx';
 
-export default function Logon({ onSetEmail, onSetToken} ) {
-  const [email, setEmail] = useState('');
+export default function Logon() {
+
+  // const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [isLoggingOn, setIsLoggingOn] = useState(false);
+
+  const { token, isAuthenticated, login, logout, email } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -3,12 +3,13 @@ import TodoList from '/src/features/Todos/TodoList/TodoList.jsx';
 import TodoForm from '/src/features/TodoForm.jsx';
 import SortBy from '/src/shared/SortBy.jsx';
 import {
-  todoReducer,
-  initialTodoState,
-  TODO_ACTIONS
+	todoReducer,
+	initialTodoState,
+	TODO_ACTIONS
 } from '/src/reducers/todoReducer.js';
 
-function TodosPage({ token }) { 
+function TodosPage() {
+
 	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
 	const {
 		todoList,
@@ -25,6 +26,8 @@ function TodosPage({ token }) {
 		sortBy,
 		sortDirection,
 	});
+
+	const { token, isAuthenticated, login, logout, email } = useAuth();
 
 	useEffect(() => {
 		const fetchTodo = async () => {
