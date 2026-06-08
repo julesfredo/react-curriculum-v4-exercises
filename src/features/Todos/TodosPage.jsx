@@ -6,7 +6,7 @@ import {
   todoReducer,
   initialTodoState,
   TODO_ACTIONS
-} from '../../todoReducer.js';
+} from '/src/reducers/todoReducer.js';
 
 function TodosPage({ token }) { 
 	const [state, dispatch] = useReducer(todoReducer, initialTodoState);

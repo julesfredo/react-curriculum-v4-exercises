@@ -47,7 +47,7 @@ export function todoReducer(state, action) {
 
 		return {
 			...state,
-			todoList(newList),
+			todoList: newList,
 			isTodoListLoading: false,
 			error: '',
 			filterError: '',
@@ -76,45 +76,42 @@ export function todoReducer(state, action) {
 			isTodoListLoading: false,
 			error: '',
 			filterError: '',
-			todoList(newListPost);
+			todoList: newListPost
 		}
-	case: TODO_ACTION.ADD_TODO_ERROR:
+	case TODO_ACTION.ADD_TODO_ERROR:
 		return {
 			...state,
 			isTodoListLoading: false,
 			error: 'Error',
 			filterError: '',
 		};
-	case: TODO_ACTION.COMPLETE_TODO_:
-
-		todoList((todoList) => {
-			// 						------------------- 
-			(todoList);
-			return todoList.map((todo) => {
-				return action.id === todo.id ? { ...todo, isCompleted:true } : todo
-			}
-			);
-		case: TODO_ACTION.COMPLETE_TODO_:
-			todoList.map(todo => {
-				if(todo.id === editedTodo.id) { 
-					return {
-						...state,
-						isTodoListLoading: false,
-						error: '',
-						filterError: '',
-						todoList(...editedTodo)
-					};
-				}
-				else {
-					return {
-						...state,
-						isTodoListLoading: false,
-						error: '',
-						filterError: '',
-						todoList(editedTodo)
-					} 
-				}
-			default:
-				throw new Error(`Unknown action type: ${action.type}`);
-			}
+	case TODO_ACTION.COMPLETE_TODO_:
+		return todoList.map((todo) => {
+			return action.id === todo.id ? { ...todo, isCompleted:true } : todo
 		}
+		);
+	case TODO_ACTION.COMPLETE_TODO_:
+		todoList.map(todo => {
+			if(todo.id === editedTodo.id) { 
+				return {
+					...state,
+					isTodoListLoading: false,
+					error: '',
+					filterError: '',
+					todoList: editedTodo 
+				};
+			}
+			else {
+				return {
+					...state,
+					isTodoListLoading: false,
+					error: '',
+					filterError: '',
+					todoList: editedTodo
+				} 
+			}
+		}) 
+		default: 
+			throw new Error(`Unknown action type: ${action.type}`);
+		}
+	}
