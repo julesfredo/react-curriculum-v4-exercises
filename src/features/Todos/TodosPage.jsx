@@ -2,15 +2,13 @@ import { useState, useEffect, useReducer } from 'react';
 import TodoList from '/src/features/Todos/TodoList/TodoList.jsx';
 import TodoForm from '/src/features/TodoForm.jsx';
 import SortBy from '/src/shared/SortBy.jsx';
+import {
+  todoReducer,
+  initialTodoState,
+  TODO_ACTIONS
+} from '../../todoReducer.js';
 
-function TodosPage({ token }) {
-	// let [todoList, setTodoList] = useState([])
-	// let [error, setError] = useState("")
-	// let [isTodoLoading, setIsTodoLoading] = useState(false)
-	// let [sortBy, setSortBy] = useState('creationDate');
-	// let [sortDirection, setSortDirection] = useState('desc');
-	// let newList = [];
-
+function TodosPage({ token }) { 
 	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
 	const {
 		todoList,
@@ -22,6 +20,7 @@ function TodosPage({ token }) {
 		filterTerm,
 		dataVersion,
 	} = state;
+
 	const params = new URLSearchParams({
 		sortBy,
 		sortDirection,
@@ -30,33 +29,28 @@ function TodosPage({ token }) {
 	useEffect(() => {
 		const fetchTodo = async () => {
 			try{
-				//setIsTodoLoading(true);
 				const response = await fetch(`/api/tasks?${params.toString()}`, {
 					method: 'GET',
 					headers: { 
 						'Content-Type': 'application/json',
 						'X-CSRF-TOKEN': token.toString()
 					},
-					credentials: 'include',
-					//body: JSON.stringify({ title, isCompleted }),
+					credentials: 'include'
 				});
 
 				const data = await response.json();
-				if(response.status === response.ok) {
-					data.tasks.map((listItem) => {
-						newList.push(listItem);
-					})
-					return setTodoList(newList);
-				} else if(response.status === 401) {
-					throw new Error("unauthorized");
-				} else {
-					throw new Error("generic Error")
-				}
+				dispatch({ 
+					type: TODO_ACTIONS.FETCH_SUCCESS,
+					payload: data
+				});
 
-			}catch(err){
-				setError(err);
+			}catch(err) {
+				dispatch({
+					type: TODO_ACTIONS.FETCH_ERROR,
+					payload: err
+				})
+
 			}finally{
-				setIsTodoLoading(false);
 			}
 
 		}
@@ -77,43 +71,24 @@ function TodosPage({ token }) {
 			});
 
 			const data = await response.json();
+			dispatch({ 
+				type: TODO_ACTIONS.ADD_TODO_SUCCESS, 
+				payload: data
+			})
 
-			if (response.status === response.ok) {
-				data.tasks.map((listItem) => {
-					newList.push(listItem.title);
-				})
-				return setTodoList(newList);
-			} else {
-
-			}
 		} catch(err){
-			throw new Error("Error: " , err)
+			dispatch({ type: TODO_ACTIONS.ADD_TODO_ERROR })
+			throw new Error("Error: " , TODO_ACTIONS.ADD_TODO_ERROR)
 		} finally{}
 	}
 	const completeTodo= async(id) => {
-		let originalList = todoList;
-		setTodoList((todoList) => {
-			(todoList);
-			return todoList.map((todo) => {
-				return id === todo.id ? { ...todo, isCompleted:true } : todo
-			}
-			);
-		}
-		)
+		dispatch({ type: TODO_ACTION.COMPLETE_TODO, payload: id })
 	}
-//Segund
 	function updateTodo(editedTodo) {
-		let updatedTodo;
-		updatedTodo = todoList.map(todo => {
-			if(todo.id === editedTodo.id) { 
-				return {...editedTodo};
-			}
-			else {
-				return editedTodo;
-			}
-			setTodoList(updatedTodo);
-		})
-		return updatedTodo;
+		dispatch({ 
+			type: TODO_ACTIONS.UPDATE_TODO_,
+			payload: editedTodo 
+		});
 	}
 
 	return(
