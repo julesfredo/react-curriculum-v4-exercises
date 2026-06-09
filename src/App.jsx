@@ -5,28 +5,31 @@ import { useState } from 'react';
 import Header from '/src/shared/Header.jsx';
 import TodosPage from '/src/features/Todos/TodosPage.jsx';
 import Logon  from '/src/features/Logon.jsx';
+import { useAuth } from '/src/contexts/AuthContext.jsx';
 
-function App(addTodo, onCompleteTodo, todoList, updateTodo) {
-  const [email, setEmail] = useState("");
-  const [token, setToken] = useState("");
+function App() {
+  const { token, isAuthenticated, login, logout, email } = useAuth();
+
   return (
     <>  
     <div>
-      <Header token={token} onSetToken={setToken} onSetEmail={setEmail} />
-      {
+      <div>
+        <Header />
+      </div>
 
-        token ? (
-         <TodosPage token={token}/>
-         ): (
-         <Logon  onSetEmail={setEmail} onSetToken={setToken}/>
-         )
-      }
-      {/*<h1>My Todos</h1>*/}
-      {/*<TodoForm onAddTodo = {addTodo}/>*/}
-      {/*<ToDoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo } />*/}
-   </div>
-   </>
-   )
+      <div>
+        {
+
+          token ? (
+           <TodosPage />
+           ): (
+           <Logon />
+           )
+         }
+       </div>
+     </div>
+     </>
+     )
 }
 
 export default App

@@ -1,108 +1,107 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import TodoList from '/src/features/Todos/TodoList/TodoList.jsx';
 import TodoForm from '/src/features/TodoForm.jsx';
+import SortBy from '/src/shared/SortBy.jsx';
+import {
+	todoReducer,
+	initialTodoState,
+	TODO_ACTIONS
+} from '/src/reducers/todoReducer.js';
 
-function TodosPage({ token }) {
-	let [todoList, setTodoList] = useState([])
-	let [error, setError] = useState("")
-	let [isTodoLoading, setIsTodoLoading] = useState(false)
-	let newList = [];
+function TodosPage() {
+
+	const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+	const {
+		todoList,
+		error,
+		filterError,
+		isTodoListLoading,
+		sortBy,
+		sortDirection,
+		filterTerm,
+		dataVersion,
+	} = state;
+
+	const params = new URLSearchParams({
+		sortBy,
+		sortDirection,
+	});
+
+	const { token, isAuthenticated, login, logout, email } = useAuth();
 
 	useEffect(() => {
 		const fetchTodo = async () => {
 			try{
-				setIsTodoLoading(true);
-				const response = await fetch('/api/tasks', {
+				const response = await fetch(`/api/tasks?${params.toString()}`, {
 					method: 'GET',
 					headers: { 
 						'Content-Type': 'application/json',
-						'X-CSRF-TOKEN': { token }
+						'X-CSRF-TOKEN': token.toString()
 					},
-					credentials: 'include',
-					body: JSON.stringify({ title, isCompleted }),
+					credentials: 'include'
 				});
 
 				const data = await response.json();
-				if(response.status === 200) {
-					data.tasks.map((listItem) => {
-						newList.push(listItem.title);
-					})
-					return setTodoList(newList);
-				} else if(response.status ===401) {
-					throw new Error("unauthorized");
-				} else {
-					throw new Error("generic Error")
-				}
+				dispatch({ 
+					type: TODO_ACTIONS.FETCH_SUCCESS,
+					payload: data
+				});
 
-			}catch(err){
-				setError(err);
+			}catch(err) {
+				dispatch({
+					type: TODO_ACTIONS.FETCH_ERROR,
+					payload: err
+				})
+
 			}finally{
-				isTodoLoading(false);
 			}
 
 		}
-	}, { token })
+		fetchTodo();
+	}, [token, sortBy, sortDirection]);
 
-const  addTodo = async (todoTitle) => { 
-	let newTodo = {id:Date.now(), title:todoTitle, isCompleted: false};
-	try {
-		const response = await fetch('/api/tasks', {
-			method: 'POST',
-			headers: { 
-				'Content-Type': 'application/json',
-				'X-CSRF-TOKEN': { token }
-			},
-			credentials: 'include',
-			body: JSON.stringify({ title, isCompleted }),
-		});
+	const  addTodo = async (todoTitle) => { 
+		let newTodo = {id:Date.now(), title: todoTitle, isCompleted: false};
+		try {
+			const response = await fetch('/api/tasks', {
+				method: 'POST',
+				headers: { 
+					'Content-Type': 'application/json',
+					'X-CSRF-TOKEN': token
+				},
+				credentials: 'include',
+				body: JSON.stringify({ todoTitle, isCompleted }),
+			});
 
-		const data = await response.json();
-
-		if (response.status === 200) {
-			data.tasks.map((listItem) => {
-				newList.push(listItem.title);
+			const data = await response.json();
+			dispatch({ 
+				type: TODO_ACTIONS.ADD_TODO_SUCCESS, 
+				payload: data
 			})
-			return setTodoList(newList);
-		} else {
 
-		}
-	} catch(err){
-		throw new Error("Error: " , err)
-	} finally{}
-}
-const completeTodo= async(id) => {
-	let originalList = todoList;
-	setTodoList((todoList) => {
-		console.log(todoList);
-		return todoList.map((todo) => {
-			return id === todo.id ? { ...todo, isCompleted:true } : todo
-		}
-		);
+		} catch(err){
+			dispatch({ type: TODO_ACTIONS.ADD_TODO_ERROR })
+			throw new Error("Error: " , TODO_ACTIONS.ADD_TODO_ERROR)
+		} finally{}
 	}
-	)
-}
-function updateTodo(editedTodo) {
-	let updatedTodo;
-	updatedTodo = todoList.map(todo => {
-		if(todo.id ===  editedTodo.id) {
-			console.log("id's match");
-			return {...editedTodo};
-		}
-		else {
-			return todoList;
-		}
-		setTodoList(updatedTodos);
-	})
-	return updatedTodo;
-}
-return(
-	<div>
-      {/*<h1>My Todos</h1>*/}
-		<TodoForm onAddTodo = {addTodo} />
-		<TodoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo } />
-	</div>
+	const completeTodo= async(id) => {
+		dispatch({ type: TODO_ACTION.COMPLETE_TODO, payload: id })
+	}
+	function updateTodo(editedTodo) {
+		dispatch({ 
+			type: TODO_ACTIONS.UPDATE_TODO_,
+			payload: editedTodo 
+		});
+	}
 
-	)
+	return(
+		<div>
+			<SortBy />
+			<TodoForm onAddTodo = {addTodo} />
+			<TodoList onCompleteTodo={ completeTodo } todoList = {todoList} onUpdateTodo={ updateTodo } />
+		</div>
+
+		)
 }
 
 export default TodosPage
