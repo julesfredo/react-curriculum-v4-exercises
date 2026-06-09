@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useAuth } from '/src/contexts/AuthContext.jsx';
 
-export default function Logon({ onSetEmail, onSetToken} ) {
-  const [email, setEmail] = useState('');
+export default function Logon() {
+
+  // const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
   const [isLoggingOn, setIsLoggingOn] = useState(false);
+
+  const { token, isAuthenticated, login, logout, email } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,7 +24,7 @@ export default function Logon({ onSetEmail, onSetToken} ) {
       });
 
       const data = await response.json();
-      console.log(response.status)
+      (response.status)
 
       if (response.status === 200
        // && data?.name && data?.csrfToken
@@ -88,7 +92,7 @@ export default function Logon({ onSetEmail, onSetToken} ) {
 // 			}
 // 			);
 // 			const data = await response.json();
-// 			console.log(response,json());
+// 			(response,json());
 // 			if(response.status === 200 && data.name && data.csrfToken) {
 // 				onSetEmail(data.name);
 // 				onSetPassword(data.csrfToken);

@@ -4,10 +4,10 @@ import react from '@vitejs/plugin-react';
 export default ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const env1 = 'https://ctd-learns-node-l42tx.ondigitalocean.app';
-  //  if (!target) throw new Error('VITE_TARGET not defined')} else { console.log('Target ')};
+  //  if (!target) throw new Error('VITE_TARGET not defined')} else { ('Target ')};
 
   return defineConfig({
-  // console.log(target);
+  // (target);
     plugins: [react()],
     server: {
       port: 3000,
