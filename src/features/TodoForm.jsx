@@ -5,22 +5,22 @@ import { isValidTodoTitle } from '../utils/todoValidation.js';
 
 function TodoForm ({ onAddTodo }) {
 
-function handleEdit(event) {
-	setWorkingTodoTitle(event.target.value);
-}
+	function handleEdit(event) {
+		setWorkingTodoTitle(event.target.value);
+	}
 	const [workingTodoTitle, setWorkingTodoTitle] = useState("");
 	const inputRef= useRef(null);
-  const handleAddTodo = (event) => {
-    event.preventDefault();
+	const handleAddTodo = (event) => {
+		event.preventDefault();
 
-console.log(workingTodoTitle);
-   let workingTodoTitleNoSpace = workingTodoTitle.trim();
-    console.log(workingTodoTitleNoSpace);
-    if (workingTodoTitleNoSpace) {
-      onAddTodo(workingTodoTitleNoSpace);
-      setWorkingTodoTitle("")
-    }
-  };
+		console.log(workingTodoTitle);
+		let workingTodoTitleNoSpace = workingTodoTitle.trim();
+		console.log(workingTodoTitleNoSpace);
+		if (workingTodoTitleNoSpace) {
+			onAddTodo(workingTodoTitleNoSpace);
+			setWorkingTodoTitle("")
+		}
+	};
 
 	return(
 		<form onSubmit={handleAddTodo}>
@@ -32,10 +32,10 @@ console.log(workingTodoTitle);
 				labelText = "todo"
 			/>
 			<button type="submit"
-			 disabled={!isValidTodoTitle(workingTodoTitle)}
+				disabled={!isValidTodoTitle(workingTodoTitle)}
 			>Add Todo </button>
-		</form>
-	);
+			</form>
+			);
 }
 export default TodoForm;
 
