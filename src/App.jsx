@@ -4,32 +4,24 @@ import TodoForm from '/src/features/TodoForm.jsx';
 import { useState } from 'react';
 import Header from '/src/shared/Header.jsx';
 import TodosPage from '/src/features/Todos/TodosPage.jsx';
+import './App.css';
+import { Routes, Route } from 'react-router';
 import Logon  from '/src/features/Logon.jsx';
 import { useAuth } from '/src/contexts/AuthContext.jsx';
+import Header from './shared/Header';
 
 function App() {
   const { token, isAuthenticated, login, logout, email } = useAuth();
-
-  return (
-    <>  
-    <div>
-      <div>
-        <Header />
-      </div>
-
-      <div>
-        {
-
-          token ? (
-           <TodosPage />
-           ): (
-           <Logon />
-           )
-         }
-       </div>
-     </div>
+  function App() {
+    return (
+      <>
+      <Header />
+      <Routes>
+       <TodosPage />
+       <Logon />
+     </Routes>
      </>
-     )
-}
+    )
+  }
 
-export default App
+  export default App
