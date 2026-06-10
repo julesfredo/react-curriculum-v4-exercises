@@ -3,7 +3,7 @@ import ToDoList from '/src/features/Todos/TodoList/TodoList.jsx';
 import TodoForm from '/src/features/TodoForm.jsx';
 import { useState } from 'react';
 import Header from '/src/shared/Header.jsx';
-import TodosPage from '/src/features/Todos/TodosPage.jsx';
+import TodosPage from '/src/pages/TodosPage.jsx';
 import './App.css';
 import { Routes, Route } from 'react-router';
 import Logon  from '/src/features/Logon.jsx';
