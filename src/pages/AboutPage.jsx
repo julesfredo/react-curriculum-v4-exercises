@@ -1,18 +1,32 @@
-export defualt function AboutPage() {
-	<h1>The About Page<h1/>
-		<div>
-			<h3>Features<h3/>
-				<span>Login Feature<span/>	
-				<span>Add Tasks<span/>	
-				<span>Edit Tasks<span/>	
-				<span>Delete Tasks<span/>	
-				<span>Query Server for new Tasks (POSTING and GETTING)<span/>
-		<div/>
-		<div>
-			<h3>Technologies<h3/>
-			<span>React v19<span/>	
-			<span>React Router<span/>	
-			<span>API Queries & Responses<span/>	
-			<span>Vite for configuration<span/>
-		<div/>
+import React from 'react';
+
+function AboutPage() {
+  return (
+    <>
+      <h1>The About Page</h1>
+
+      <div>
+        <h3>Features</h3>
+        <ul>
+          <li>Login Feature</li>
+          <li>Add Tasks</li>
+          <li>Edit Tasks</li>
+          <li>Delete Tasks</li>
+          <li>Query server for new tasks (POST & GET)</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Technologies</h3>
+        <ul>
+          <li>React v19</li>
+          <li>React Router</li>
+          <li>API queries & responses</li>
+          <li>Vite for configuration</li>
+        </ul>
+      </div>
+    </>
+  );
 }
+
+export default AboutPage;

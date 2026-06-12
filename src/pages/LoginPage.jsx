@@ -29,3 +29,4 @@ function LoginPage() {
   
   // ... rest of component with form JSX
 }
+export default LoginPage;
